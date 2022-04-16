@@ -5,7 +5,7 @@ Blog created with Symfony 6.0.3 - PHP 8.0.1
 ## Installation :
 
 ```bash
-git clone https://github.com/C-PONS-DEV/Symfony_blog
+git clone https://github.com/C-PONS-DEV/Blog-CMS
 ```
 
 ```bash
