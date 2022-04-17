@@ -34,11 +34,11 @@ symfony console doctrine:migrations:migrate
 
 # Compte :
 
-Admin: admin@blog.com / toto@
+Admin: admin / adminblog
 
-Author: auteur@blog.com / toto@
+Author: auteur / autheurblog
 
-User: user@blog.com / toto@
+User: user / userblog
 
 ## License
 
