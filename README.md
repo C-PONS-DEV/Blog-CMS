@@ -44,4 +44,4 @@ User: user / userblog
 
 Free and unlimited for non-commercial use (Advertising included)
 
-Free and private for commercial use, or with advertisements. Contact: cponsdev@gmail.com
+Paid and private for commercial use, or with advertisements. Any unauthorized use will be continued, even with modifications. Contact: cponsdev@gmail.com
