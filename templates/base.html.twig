@@ -16,6 +16,7 @@
         {% endblock %}
     </head>
     <body>
+    {% if is_granted('ROLE_AUTHOR') %}
     <nav class="py-2 bg-dark border-bottum">
         <div class="container d-flex flex-wrap">
 
@@ -47,6 +48,7 @@
 
         </div>
     </nav>
+    {% endif %}
 
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">

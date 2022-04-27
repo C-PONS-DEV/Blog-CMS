@@ -36,7 +36,7 @@ symfony console doctrine:migrations:migrate
 
 Admin: admin / adminblog
 
-Author: auteur / autheurblog
+Author: auteur / auteurblog
 
 User: user / userblog
 
