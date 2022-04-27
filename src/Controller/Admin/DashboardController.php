@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\Media;
 use App\Entity\Menu;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -56,6 +57,11 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Tous les articles', 'fas fa-newspaper', Article::class),
                 MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Article::class)->setAction(Crud::PAGE_NEW),
                 MenuItem::linkToCrud('Catégories', 'fas fa-list', Category::class)
+            ]);
+
+            yield MenuItem::subMenu('Médias', 'fas fa-photo-video')->setSubItems([
+                MenuItem::linkToCrud('Médiathèque', 'fas fa-photo-video', Media::class),
+                MenuItem::linkToCrud('Ajouter', 'fas fa-plus', Media::class)->setAction(Crud::PAGE_NEW),
             ]);
         }
         if($this->isGranted('ROLE_ADMIN')) {
