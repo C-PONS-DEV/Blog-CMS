@@ -2,102 +2,75 @@
 
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>Blog - {% block title %}{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>Blog - {% block title %}{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-    {% if is_granted('ROLE_AUTHOR') %}
-    <nav class="py-2 bg-dark border-bottum">
-        <div class="container d-flex flex-wrap">
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none" href="{{ path('app_home') }}"><span class="fs-4">Mon blog</span></a>
+        <ul class="nav nav-pills">
 
-            <div class="dropdown">
-                <a class="nav nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Mon blog
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonAdminDashboard">
-                    <li>
-                        <a class="dropdown-item" href="{{ path('admin') }}">Tableau de bord</a>
-                       {# <a class="dropdown-item" href="{{ ea_index('MenuCrudController') }}">Menus</a> #}
-                    </li>
-                </ul>
-            </div>
-
-            <div class="dropdown">
-                <a class="nav nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Ajouter
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonAdminAdd">
-                    <li>
-                        <a class="dropdown-item" href="#">Article</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Page</a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </nav>
-    {% endif %}
-
-    <div class="container">
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none" href="{{ path('app_home') }}"><span class="fs-4">Mon blog</span></a>
-            <ul class="nav nav-pills">
-
-                {% for menu in menus %}
-                    {% if menu.subMenus.count > 0 %}
-                        <div class="dropdown">
-                            <a class="nav nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ menu.name }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                {% for subMenu in menu.subMenus %}
-                                    <li><a class="dropdown-item" href="{{ subMenu|menuLink }}">{{ subMenu.name }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% else %}
-                        <li class="nav-item"><a class="nav-link text-dark" href="{{ menu|menuLink }}">{{ menu.name }}</a></li>
-                    {% endif %}
-                {% endfor %}
-
-                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li class="nav-item"><a class="nav-link text-dark" href="{{ path('app_register') }}">S'inscrire</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="{{ path('app_login') }}">Se connecter</a></li>
-                {% else %}
+            {% for menu in menus %}
+                {% if menu.subMenus.count > 0 %}
                     <div class="dropdown">
-                        <a class="nav nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ app.user.username|capitalize }}</a>
+                        <a class="nav nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ menu.name }}
+                        </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="{{ path('app_profile', { username: app.user.username }) }}">Mon profil</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
-                            </li>
+                            {% for subMenu in menu.subMenus %}
+                                <li><a class="dropdown-item" href="{{ subMenu|menuLink }}">{{ subMenu.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link text-dark" href="{{ menu|menuLink }}">{{ menu.name }}</a></li>
                 {% endif %}
-            </ul>
-        </header>
-    </div>
-        {% block body %}{% endblock %}
-    <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <div class="col-md-4 d-flex align-items-center">
-                <span class="copyright">©{{ 'now'|date('Y') }} - CPONS - Tous droits réservés.</span>
-            </div>
-        </footer>
-    </div>
-    </body>
+            {% endfor %}
+
+            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li class="nav-item"><a class="nav-link text-dark" href="{{ path('app_register') }}">S'inscrire</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="{{ path('app_login') }}">Se connecter</a></li>
+            {% else %}
+                <div class="dropdown">
+                    <a class="nav nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ app.user.username|capitalize }}</a>
+                    <ul class="dropdown-menu">
+                        {% if is_granted('ROLE_AUTHOR') %}
+                            <li>
+                                <a class="dropdown-item" href="{{ path('admin') }}">Tableau de bord</a>
+                                {# <a class="dropdown-item" href="{{ ea_index('MenuCrudController') }}">Menus</a> #}
+                            </li>
+                        {% endif %}
+                        <li>
+                            <a class="dropdown-item" href="{{ path('app_profile', { username: app.user.username }) }}">Mon profil</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+        </ul>
+    </header>
+</div>
+{% block body %}{% endblock %}
+<div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <span class="copyright">©{{ 'now'|date('Y') }} - CPONS - Tous droits réservés.</span>
+        </div>
+    </footer>
+</div>
+</body>
 </html>
