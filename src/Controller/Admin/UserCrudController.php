@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
@@ -50,7 +51,8 @@ class UserCrudController extends AbstractCrudController
 
         yield TextField::new('password')
             ->setFormType(PasswordType::class)
-            ->onlyOnForms();
+            ->onlyOnForms()
+            ->onlyWhenCreating();
 
         yield ChoiceField::new('roles')
             ->allowMultipleChoices()
